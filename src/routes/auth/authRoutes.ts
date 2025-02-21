@@ -1,13 +1,13 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import { z } from 'zod'
-import { prisma } from '../lib/prisma'
-import { ClientError } from '../errors/client-error'
-import { env } from '../env'
 import bcrypt from 'bcryptjs'
+import { FastifyInstance } from 'fastify'
+import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import jwt from 'jsonwebtoken'
-import { authMiddleware } from '../middleware/authMiddleWare'
-import { upload } from '../config/multerConfig';
+import { z } from 'zod'
+import { upload } from '../../config/multerConfig'
+import { env } from '../../env'
+import { ClientError } from '../../errors/client-error'
+import { prisma } from '../../lib/prisma'
+import { authMiddleware } from '../../middleware/authMiddleWare'
 
 export async function authRoutes(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -17,16 +17,17 @@ export async function authRoutes(app: FastifyInstance) {
         body: z.object({
           name: z.string().min(1),
           email: z.string().email(),
-          password: z.string().min(6),
-          profilePicture: z.string().optional(),
+          password: z.string().min(6)
         }),
       },
-      preHandler: upload.single('profilePicture'),
+      preHandler: upload.single('profilePicture')
     },
     async (
-      request, 
+      request,
       reply
     ) => {
+      console.log('Request Body:', request.body);
+
       const { name, email, password } = request.body
       const profilePicture = request.file ? request.file.filename : null
 
