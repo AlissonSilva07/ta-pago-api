@@ -12,6 +12,9 @@ import { getExpenses } from "./routes/expenses/getExpenses";
 import { getExpenseById } from "./routes/expenses/getExpenseById";
 import { deleteExpense } from "./routes/expenses/deleteExpense";
 import { updateExpense } from "./routes/expenses/editExpense";
+import { getMonthlyExpenseProgress } from "./routes/analytics/getMonthlyExpenseProgress";
+import { getTotalExpensesPerMonth } from "./routes/analytics/getTotalExpensesPerMonth";
+
 
 import fastifyMultipart from '@fastify/multipart';
 
@@ -31,6 +34,8 @@ app.register(getExpenses)
 app.register(getExpenseById)
 app.register(deleteExpense)
 app.register(updateExpense)
+app.register(getMonthlyExpenseProgress)
+app.register(getTotalExpensesPerMonth)
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)

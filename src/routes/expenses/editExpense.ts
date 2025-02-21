@@ -40,7 +40,6 @@ export async function updateExpense(app: FastifyInstance) {
         return reply.status(404).send({ error: "Expense not found or access denied" });
       }
 
-      // Update the expense
       const updatedExpense = await prisma.expense.update({
         where: { id },
         data: updateData,
