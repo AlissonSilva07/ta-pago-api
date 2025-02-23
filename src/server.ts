@@ -20,9 +20,7 @@ import { updateUserData } from "./routes/user/updateUserData";
 
 const app = fastify()
 
-app.register(cors, {
-    origin: '*'
-})
+app.register(cors)
 
 app.register(authRoutes)
 app.register(createExpense)
