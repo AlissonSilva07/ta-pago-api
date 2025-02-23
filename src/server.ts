@@ -15,18 +15,11 @@ import { updateExpense } from "./routes/expenses/editExpense";
 import { getMonthlyExpenseProgress } from "./routes/analytics/getMonthlyExpenseProgress";
 import { getTotalExpensesPerMonth } from "./routes/analytics/getTotalExpensesPerMonth";
 
-
-import fastifyMultipart from '@fastify/multipart';
-
 const app = fastify()
 
 app.register(cors, {
     origin: '*'
 })
-
-app.register(fastifyMultipart, {
-    attachFieldsToBody: 'keyValues'
-});
 
 app.register(authRoutes)
 app.register(createExpense)

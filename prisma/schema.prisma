@@ -14,24 +14,24 @@ datasource db {
 }
 
 model User {
-  id             String  @id @default(uuid())
+  id             String    @id @default(uuid())
   name           String
-  email          String  @unique
+  email          String    @unique
   password       String
-  profilePicture String?
-  createdAt      DateTime @default(now())
+  profilePicture Bytes?
+  createdAt      DateTime  @default(now())
   expenses       Expense[]
 }
 
 model Expense {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
   description String?
   amount      Float
   category    String
-  isPaid      Boolean @default(false)
+  isPaid      Boolean  @default(false)
   dueDate     DateTime
   userId      String
-  user        User @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
 }
