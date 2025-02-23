@@ -25,12 +25,12 @@ export async function createExpense(app: FastifyInstance) {
       const userId = req.user?.id;
 
       if (!userId) {
-        return reply.status(400).send({ error: "User ID is required" });
+        return reply.status(400).send({ error: "O id do usuário é obrigatório." });
       }
 
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (!user) {
-        return reply.status(404).send({ error: "User not found" });
+        return reply.status(404).send({ error: "Usuário não encontrado." });
       }
 
       const expense = await prisma.expense.create({

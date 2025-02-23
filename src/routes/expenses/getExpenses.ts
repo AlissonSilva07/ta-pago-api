@@ -13,7 +13,7 @@ export async function getExpenses(app: FastifyInstance) {
       const userId = req.user?.id;
 
       if (!userId) {
-        return reply.status(400).send({ error: "User ID is required" });
+        return reply.status(400).send({ error: "O id do usuário é obrigatório." });
       }
 
       const expenses = await prisma.expense.findMany({

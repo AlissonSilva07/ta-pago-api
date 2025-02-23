@@ -20,7 +20,7 @@ export async function deleteExpense(app: FastifyInstance) {
       const userId = req.user?.id;
 
       if (!userId) {
-        return reply.status(400).send({ error: "User ID is required" });
+        return reply.status(400).send({ error: "O id do usuário é obrigatório." });
       }
 
       const expense = await prisma.expense.findUnique({
@@ -28,14 +28,17 @@ export async function deleteExpense(app: FastifyInstance) {
       });
 
       if (!expense || expense.userId !== userId) {
-        return reply.status(404).send({ error: "Expense not found or access denied" });
+        return reply.status(404).send({ error: "Gasto não encontrado. Tente novamente." });
       }
 
       await prisma.expense.delete({
         where: { id },
       });
 
-      return reply.status(200).send({ message: "Expense deleted successfully" });
+      return reply.status(200).send({ 
+        message: "Sucesso ao deletar o gasto.",
+        nome_gasto: expense.title
+       });
     }
   );
 }
