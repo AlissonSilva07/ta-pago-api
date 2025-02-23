@@ -14,6 +14,9 @@ import { deleteExpense } from "./routes/expenses/deleteExpense";
 import { updateExpense } from "./routes/expenses/editExpense";
 import { getMonthlyExpenseProgress } from "./routes/analytics/getMonthlyExpenseProgress";
 import { getTotalExpensesPerMonth } from "./routes/analytics/getTotalExpensesPerMonth";
+import { getUserData } from "./routes/user/getUserData";
+import { updateUserData } from "./routes/user/updateUserData";
+
 
 const app = fastify()
 
@@ -29,6 +32,8 @@ app.register(deleteExpense)
 app.register(updateExpense)
 app.register(getMonthlyExpenseProgress)
 app.register(getTotalExpensesPerMonth)
+app.register(getUserData)
+app.register(updateUserData)
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
