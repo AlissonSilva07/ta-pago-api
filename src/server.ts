@@ -12,6 +12,8 @@ import { getExpenses } from "./routes/expenses/getExpenses";
 import { getExpenseById } from "./routes/expenses/getExpenseById";
 import { deleteExpense } from "./routes/expenses/deleteExpense";
 import { updateExpense } from "./routes/expenses/editExpense";
+import { markExpenseAsPaid } from "./routes/expenses/payExpense";
+import { getSummaryUnpaidExpenses } from "./routes/analytics/getSummaryUnpaidExpenses";
 import { getMonthlyExpenseProgress } from "./routes/analytics/getMonthlyExpenseProgress";
 import { getTotalExpensesPerMonth } from "./routes/analytics/getTotalExpensesPerMonth";
 import { getUserData } from "./routes/user/getUserData";
@@ -28,6 +30,8 @@ app.register(getExpenses)
 app.register(getExpenseById)
 app.register(deleteExpense)
 app.register(updateExpense)
+app.register(markExpenseAsPaid)
+app.register(getSummaryUnpaidExpenses)
 app.register(getMonthlyExpenseProgress)
 app.register(getTotalExpensesPerMonth)
 app.register(getUserData)
