@@ -29,7 +29,12 @@ export async function getTotalExpensesPerMonth(app: FastifyInstance) {
         return acc;
       }, {} as Record<string, number>);
 
-      return { monthlyTotals };
+      const result = Object.entries(monthlyTotals).map(([month, total]) => ({
+        month,
+        total,
+      }));
+
+      return reply.send(result);
     }
   );
 }
