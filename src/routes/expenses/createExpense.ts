@@ -14,7 +14,7 @@ export async function createExpense(app: FastifyInstance) {
           amount: z.number(),
           title: z.string().min(6),
           description: z.string().min(6),
-          category: z.string().min(6),
+          category: z.string().min(3),
           isPaid: z.boolean(),
           dueDate: z.coerce.date(),
         }),

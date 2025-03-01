@@ -31,7 +31,7 @@ export async function getExpenseById(app: FastifyInstance) {
         return reply.status(404).send({ error: "Gasto não encontrado. Tente novamente." });
       }
 
-      return { expense };
+      return reply.send(expense);
     }
   );
 }

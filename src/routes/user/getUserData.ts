@@ -23,6 +23,7 @@ export async function getUserData(app: FastifyInstance) {
           name: true,
           email: true,
           profilePicture: true,
+          createdAt: true
         },
       });
 
@@ -30,7 +31,14 @@ export async function getUserData(app: FastifyInstance) {
         return reply.status(404).send({ error: "Usuário não encontrado. Tente novamente." });
       }
 
-      return { user };
+      const userResponse = {
+        ...user,
+        profilePicture: user.profilePicture
+          ? Buffer.from(user.profilePicture).toString("base64")
+          : null,
+      };
+
+      return reply.send(userResponse);
     }
   );
 }
