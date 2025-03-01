@@ -5,7 +5,7 @@ import { authMiddleware } from "../../middleware/authMiddleWare";
 
 export async function getSummaryUnpaidExpenses(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
-    "/expenses/unpaid-summary",
+    "/analytics/unpaid-summary",
     {
       preHandler: authMiddleware,
     },
@@ -27,7 +27,7 @@ export async function getSummaryUnpaidExpenses(app: FastifyInstance) {
         take: 3,
       });
 
-      return reply.send({ expenses: unpaidExpenses });
+      return reply.send(unpaidExpenses);
     }
   );
 }
