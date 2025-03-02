@@ -19,7 +19,6 @@ import { getTotalExpensesPerMonth } from "./routes/analytics/getTotalExpensesPer
 import { getUserData } from "./routes/user/getUserData";
 import { updateUserData } from "./routes/user/updateUserData";
 
-
 const app = fastify()
 
 app.register(cors)
@@ -42,6 +41,6 @@ app.setSerializerCompiler(serializerCompiler)
 
 app.setErrorHandler(errorHandler)
 
-app.listen({ port: env.PORT }).then(() => {
+app.listen({ port: env.PORT || 3000 }).then(() => {
     console.log('Server running!')
 })
