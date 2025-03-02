@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { prisma } from "../../lib/prisma";
 import { authMiddleware } from "../../middleware/authMiddleWare";
+import dayjs from "dayjs";
 
 export async function getMonthlyExpenseProgress(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -16,27 +17,32 @@ export async function getMonthlyExpenseProgress(app: FastifyInstance) {
         return reply.status(400).send({ error: "User ID is required" });
       }
 
+      const startOfMonth = dayjs().startOf("month").toDate();
+      const endOfMonth = dayjs().endOf("month").toDate();
+
       const expenses = await prisma.expense.findMany({
-        where: { userId },
+        where: {
+          userId,
+          dueDate: {
+            gte: startOfMonth,
+            lte: endOfMonth,
+          },
+        },
         orderBy: { dueDate: "asc" },
       });
 
-      const progress = expenses.reduce((acc, expense) => {
-        const yearMonth = expense.dueDate.toISOString().slice(0, 7);
+      const progress = expenses.reduce(
+        (acc, expense) => {
+          acc.total++;
+          if (expense.isPaid) {
+            acc.current++;
+          }
+          return acc;
+        },
+        { current: 0, total: 0 }
+      );
 
-        if (!acc[yearMonth]) {
-          acc[yearMonth] = { current: 0, total: 0 };
-        }
-
-        acc[yearMonth].total++;
-        if (expense.isPaid) {
-          acc[yearMonth].current++;
-        }
-
-        return acc;
-      }, {} as Record<string, { current: number; total: number }>);
-
-      return { progress };
+      return reply.send(progress);
     }
   );
 }

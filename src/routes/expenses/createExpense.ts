@@ -12,8 +12,8 @@ export async function createExpense(app: FastifyInstance) {
       schema: {
         body: z.object({
           amount: z.number(),
-          title: z.string().min(6),
-          description: z.string().min(6),
+          title: z.string().min(3),
+          description: z.string().min(3).optional(),
           category: z.string().min(3),
           isPaid: z.boolean(),
           dueDate: z.coerce.date(),

@@ -24,7 +24,7 @@ export async function getSummaryUnpaidExpenses(app: FastifyInstance) {
         orderBy: {
           dueDate: "asc",
         },
-        take: 3,
+        take: 2,
       });
 
       return reply.send(unpaidExpenses);
