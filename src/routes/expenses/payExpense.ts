@@ -5,7 +5,7 @@ import { prisma } from "../../lib/prisma";
 import { authMiddleware } from "../../middleware/authMiddleWare";
 
 export async function markExpenseAsPaid(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().patch(
+  app.withTypeProvider<ZodTypeProvider>().put(
     "/expenses/:id/pay",
     {
       preHandler: authMiddleware,
